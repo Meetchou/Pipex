@@ -73,22 +73,28 @@ void pipex(int f1, int f2, char *av[], char *env[])
   pid_t child2;
   int   status;
   int   pipe_fd[2];
+  int   i;
 
-  if (pipe(pipe_fd) == -1)
-    return (perror("pipe: "));
-  child1 = fork();
-  if (child1 < 0)
-    return (perror("fork: "));
-  if (child1 == 0)
+  i = 1;
+  while (av[i + 2])
   {
-    treat_child_one(f1, pipe_fd, av[2], env);
-    waitpid(child1, &status, 0);
+    if (pipe(pipe_fd) == -1)
+      return (perror("pipe: "));
+    child1 = fork();
+    if (child1 < 0)
+      return (perror("fork: "));
+    if (child1 == 0)
+    {
+      treat_child_one(f1, pipe_fd, av[2], env);
+      waitpid(child1, &status, 0);
+    }
+    child2 = fork();
+    if (child2 < 0)
+      return (perror("fork: "));
+    if (child2 == 0)
+      treat_child_two(f2, pipe_fd, av[3], env);
+    i++;
   }
-  child2 = fork();
-  if (child2 < 0)
-    return (perror("fork: "));
-  if (child2 == 0)
-    treat_child_two(f2, pipe_fd, av[3], env);
   close(pipe_fd[0]);
   close(pipe_fd[1]);
   waitpid(child2, &status, 0);
@@ -107,4 +113,3 @@ int main(int ac, char *av[], char *env[])
   pipex(f1, f2, av, env);
   return 0;
 }
-
