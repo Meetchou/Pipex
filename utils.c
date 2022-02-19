@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kamanfo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/13 13:22:41 by kamanfo           #+#    #+#             */
+/*   Updated: 2021/12/13 13:22:43 by kamanfo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 size_t	ft_strlen(const char *s)
@@ -52,7 +64,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	return (NULL);
 }
 
-int permission_error(char *filename)
+int	permission_error(char *filename)
 {
 	write(2, "pipex: ", 7);
 	write(2, "permission denied: ", 19);
@@ -74,7 +86,7 @@ int	openfile(char *filename, int mode)
 			return (-1);
 		}
 		else if (access(filename, R_OK) == -1)
-			return (permission_error(filename));	
+			return (permission_error(filename));
 		return (open(filename, O_RDONLY));
 	}
 	else

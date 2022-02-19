@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamanfo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:27:12 by kamanfo           #+#    #+#             */
-/*   Updated: 2021/11/22 15:27:14 by kamanfo          ###   ########.fr       */
+/*   Updated: 2021/12/13 13:01:32 by kamanfo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static int	ft_ischarset(char c, char *sep)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (sep[++i])
 		if (c == sep[i])
 			return (1);
-		return (0);
+	return (0);
 }
 
 static int	ft_countwords(char const *str, char *sep)
